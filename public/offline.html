@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Kas Kelas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .offline-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 500px;
+        }
+        
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        .offline-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .offline-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .retry-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .retry-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .offline-features {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            text-align: left;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            📱
+        </div>
+        
+        <h1 class="offline-title">Mode Offline</h1>
+        
+        <p class="offline-description">
+            Anda sedang offline, tetapi aplikasi Kas Kelas masih dapat digunakan dengan fitur terbatas.
+        </p>
+        
+        <button class="retry-button" onclick="window.location.reload()">
+            🔄 Coba Lagi
+        </button>
+        
+        <div class="offline-features">
+            <h3 style="margin-bottom: 1rem;">✨ Fitur yang Tersedia Offline:</h3>
+            
+            <div class="feature-item">
+                <span class="feature-icon">📊</span>
+                <span>Lihat data kas yang sudah disimpan</span>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">📝</span>
+                <span>Input transaksi baru (akan disinkron nanti)</span>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">📋</span>
+                <span>Lihat laporan yang sudah di-cache</span>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🔍</span>
+                <span>Cari data siswa offline</span>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🔄</span>
+                <span>Auto-sync ketika online kembali</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check for online status
+        window.addEventListener('online', function() {
+            window.location.reload()
+        })
+        
+        // Show notification when back online
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', function(event) {
+                if (event.data.type === 'SYNC_SUCCESS') {
+                    console.log('Data synced successfully:', event.data.data)
+                }
+            })
+        }
+    </script>
+</body>
+</html>
